@@ -11,6 +11,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'cd JtProject'
+                sh 'pwd'
                 // Build the project using Maven
                 sh 'mvn clean package'
             }
