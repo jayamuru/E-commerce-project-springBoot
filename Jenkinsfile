@@ -8,15 +8,9 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Checkout the code from the GitHub repository
-                git url: "${GITHUB_REPO_URL}", branch: 'main'
-            }
-        }
-        
         stage('Build') {
             steps {
+                sh 'cd JtProject'
                 // Build the project using Maven
                 sh 'mvn clean package'
             }
