@@ -16,29 +16,38 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'cd JtProject'
-                sh 'pwd'
-                // Build the project using Maven
-                sh 'mvn clean package'
+                // Use the 'dir' block to change directory context
+                dir('JtProject') {
+                    // Print the current directory
+                    sh 'pwd'
+                    // Build the project using Maven
+                    sh 'mvn clean package'
+                }
             }
         }
         
         stage('Test') {
             steps {
-                // Run the tests
-                sh 'mvn test'
+                // Use the 'dir' block to change directory context
+                dir('JtProject') {
+                    // Run the tests
+                    sh 'mvn test'
+                }
             }
         }
         
         stage('Deploy') {
             steps {
-                // Deploy the application (this can be customized as per your deployment process)
-                // For example, copying the built JAR file to a specific location, or deploying to a cloud service
-                sh '''
-                echo "Deploying application..."
-                # Example command: copying the built JAR file to a remote server
-                # scp target/*.jar user@remote-server:/path/to/deployment/directory
-                '''
+                // Use the 'dir' block to change directory context
+                dir('JtProject') {
+                    // Deploy the application (this can be customized as per your deployment process)
+                    // For example, copying the built JAR file to a specific location, or deploying to a cloud service
+                    sh '''
+                    echo "Deploying application..."
+                    # Example command: copying the built JAR file to a remote server
+                    # scp target/*.jar user@remote-server:/path/to/deployment/directory
+                    '''
+                }
             }
         }
     }
